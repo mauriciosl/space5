@@ -31,9 +31,11 @@ var MyLayer = cc.Layer.extend({
     circle:null,
     sprite:null,
     tmxMap:null,
+    connection:null,
 
-    init:function () {
+    init:function (connection) {
 
+        this.connection = connection;
         //////////////////////////////
         // 1. super init first
         this._super();
@@ -50,7 +52,8 @@ var MyLayer = cc.Layer.extend({
             "res/CloseSelected.png",
             this,
             function () {
-                history.go(-1);
+                console.log('button');
+                this.connection.send('ping');
             });
         closeItem.setAnchorPoint(cc.p(0.5, 0.5));
 
@@ -96,11 +99,41 @@ var MyLayer = cc.Layer.extend({
 
 });
 
+function getConnection(){
+    // if user is running mozilla then use it's built-in WebSocket
+    window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+    var connection = new WebSocket('ws://127.0.0.1:8000');
+
+    connection.onopen = function () {
+        // connection is opened and ready to use
+        console.log('connection opened');
+    };
+
+    connection.onerror = function (error) {
+        // an error occurred when sending/receiving data
+        console.error('connection error:' + error);
+    };
+
+    connection.onmessage = function (message) {
+        // try to decode json (I assume that each message from server is json)
+        try {
+            var json = JSON.parse(message.data);
+        } catch (e) {
+            console.log('This doesn\'t look like a valid JSON: ', message.data);
+            return;
+        }
+        // handle incoming message
+        console.log(json);
+    };
+    return connection;
+}
+
 var MyScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
         var layer = new MyLayer();
         this.addChild(layer);
-        layer.init();
+        layer.init(getConnection());
     }
 });

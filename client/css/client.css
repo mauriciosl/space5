@@ -1,0 +1,11 @@
+
+body {
+    background: #000;
+}
+
+section#gamewindow {
+    width:800px;
+    height:450px;
+    /*position: relative;
+    z-index: -9999; */
+}
