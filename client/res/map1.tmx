@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="64" height="64" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dirt" tilewidth="32" tileheight="32">
+  <image source="gfx/dirt.png" width="160" height="96"/>
+  <tile id="6">
+   <properties>
+    <property name="type" value="rock"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="16" name="objects" tilewidth="32" tileheight="32">
+  <image source="gfx/objects.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="spaw" value="1"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="defense"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="objective"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="20" name="grass" tilewidth="32" tileheight="32">
+  <image source="gfx/grass.png" width="96" height="96"/>
+ </tileset>
+ <layer name="ground" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztWdtOwzAMLazrQDB44bIN/v87yaRFCiZOfG1ClYcjbW3d5hw7sZ3sp2naD7hj7mAMrflLNJgJ0I7tLuA+YLeSBpwxS3lynl9uzz8Yc5T4zdrXFNungOeAo4Ov3wLeAT4KY5LYaPWD1y11/ww4AZwr/Lk2Wv3m6e+4KXMprhspdlOd/6kwHomNlX7w/iHDP+X8WNCnxh8bj8TGSj/K9QVcixq9Tr/XkPidS8BXBt8F/lwbrX7Qz4fkN3w+5ooDeAdcO6U5QJvvtfqV5sMVMVdEvBB4lPhRvsnlr82hnGdjPHjXTlRINU/nQQ7YPUrtkMtHaV7S2EhyM8afe48KbD2Ka5LGBvMrR3NoX4qXXM6HuR+OIx17bk2ysIHj5GpeWivS38uEzyPYP8BcdC58Q2MDNZDoh60D8Jsw/9f4XwT8uTZW+tVi4nrtut4db/9hLsTWwHQ8uZrcysZCv9r85+hXm4vnwrskNhb6ceKC+nytHrOysdTPC7G25sxFiY1Wvy1Boh8EzPst6901/Rd5w17fYq9Qw1+a07hYkHdz+Ut6gB6A9btc/pIeoEdI9sql9WiPgP0uJa6t6tEeQYlrbT3aKzhx7VWPttSQE9dW9SiW+1powInrUj3K9anmfMwzBqhxnatHOT7VnI958pfG9cz0qeZ8zGMOaPssuGdT86nmfMwT0j4L44/51Op8pxeU+Od86pkDWvQpcc+O6lNsT86Cf4s+RZIDPNCqT8lxrPH3iNP/1Kd4xGnrPoXqU8849dw3T2Nb41PPOF1j3xybz1SfesZpi31zmP8pnNaIU4t9cyp/rk97Pd/RgOPTLZ7vSH26Vpx6Y4s+lWIrPh0YGBgYGBgYGBgYGOgFP5Vfe1g=
+  </data>
+ </layer>
+ <layer name="objectives" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt1lEKwyAMANAeobj733X/RauOrSPJeyAG9KNJtHgcPOncjKM7L/NunKkWAAAAAAAA2bQv7YmudeZKeVfXBvFsLZPrHcisQo67ev3v1UntYhv1b7X/2czqsbI3mrvcZjlmqUF1o3fO3fuHfHb+f+Sx2l/nIJdP++kcAABALO2Hgxxe//4AKOwNUfAFIA==
+  </data>
+ </layer>
+</map>

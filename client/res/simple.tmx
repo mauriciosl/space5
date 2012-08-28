@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="16" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="dirt.tsx"/>
+ <tileset firstgid="16" source="grass.tsx"/>
+ <tileset firstgid="25" name="objects" tilewidth="32" tileheight="32">
+  <image source="gfx/objects.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="spaw" value="1"/>
+    <property name="type" value="spawn"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="defense"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="objective"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="ground" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNhYGAQGcFYnELMSkXMQoBPTbMJmc9OgT2k+oNYf7JTYB613ICOBSnEwy39Exv3LESoITVd4zOT0rxEbNojJ/2RKkertEwNTG+7h3r+G2gMAPo8E3QACAAA
+  </data>
+ </layer>
+ <objectgroup name="objects" width="16" height="32">
+  <object type="spawn" gid="25" x="204" y="103">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="266" y="102">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="assault"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="182" y="934">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="objective" gid="28" x="270" y="34">
+   <properties>
+    <property name="team" value="blue"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="315" y="103">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="365" y="102">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="objective" gid="28" x="283" y="991">
+   <properties>
+    <property name="team" value="red"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="228" y="933">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="273" y="936">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="assault"/>
+   </properties>
+  </object>
+  <object type="spawn" gid="25" x="329" y="938">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="220" y="783">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="270" y="782">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="173" y="782">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="377" y="784">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="324" y="781">
+   <properties>
+    <property name="team" value="blue"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="166" y="210">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="240" y="198">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="291" y="199">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="336" y="204">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="defense" gid="27" x="389" y="204">
+   <properties>
+    <property name="team" value="red"/>
+    <property name="type" value="mg"/>
+   </properties>
+  </object>
+  <object type="supply" gid="26" x="281" y="117">
+   <properties>
+    <property name="team" value="red"/>
+   </properties>
+  </object>
+  <object type="supply" gid="26" x="271" y="948">
+   <properties>
+    <property name="team" value="blue"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

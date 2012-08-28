@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="16" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="objects" tilewidth="32" tileheight="32">
+  <image source="gfx/objects.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="spawn"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="rifleman"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="defense"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="objective"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" source="beach.tsx"/>
+ <tileset firstgid="69" source="dirt.tsx"/>
+ <layer name="ground" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3RzQqCQBSG4VlltEkp+lmVF1AupFpEP2MtjO7/fvoWI3wcnPCMBiEuHjgwvJ7ByY0xeQvnDoxgrDShfgGR0oy+NQ/o2RRi50mzxGcJ9UtYOQ+aJT5be/o7zYUjz6ynt2Kf7Jlvf1/6ooO+muV/1d6/7g5N+m+avL+2b7v/n95/B3uSKfsDvMgpoC/hCG/X28D9pWJ/teMCV3L74ftvYKuUUj8I9wHCOLgpAAgAAA==
+  </data>
+ </layer>
+ <layer name="objectives" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWDETBC8VDVPwroC5hJxKP2j9pPDGChrjNHwSADAENQ8WcACAAA
+  </data>
+ </layer>
+</map>
