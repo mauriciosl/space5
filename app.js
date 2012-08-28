@@ -3,7 +3,7 @@ var WebSocketServer = require('websocket').server;
 var static = require('node-static');
 var http = require('http');
 
-var clientFiles = new static.Server('../client');
+var clientFiles = new static.Server('client');
 
 var server = http.createServer(function(request, response) {
     request.addListener('end', function () {
