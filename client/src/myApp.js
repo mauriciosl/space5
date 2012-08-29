@@ -32,10 +32,13 @@ var MyLayer = cc.Layer.extend({
     sprite:null,
     tmxMap:null,
     connection:null,
+    shipsLayer:null,
+
 
     init:function (connection) {
 
         this.connection = connection;
+        this.bindConnection();
         //////////////////////////////
         // 1. super init first
         this._super();
@@ -73,28 +76,50 @@ var MyLayer = cc.Layer.extend({
         this.addChild(this.helloLabel, 5);
 
         var lazyLayer = new cc.LazyLayer();
-        this.addChild(lazyLayer);
-
-        // add "Helloworld" splash screen"
-        this.sprite = cc.Sprite.create("res/edudu.png");
-        this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.sprite.setPosition(cc.p(size.width / 2, size.height / 2));
-        this.sprite.setRotation(180);
-        this.sprite.setScale(0.1);
-        var scaleTo = cc.ScaleTo.create(2,1,1);
-        var easeScale = cc.EaseElasticOut.create(scaleTo,0.4);
-
-        // this.sprite.runAction(easeElasticOut);
-
-        var rotateBy = cc.RotateBy.create(2,180);
-        var easeRotate = cc.EaseElasticOut.create(rotateBy,0.4);
-
-        // this.sprite.runAction(easeRotate);
-        this.sprite.runAction(cc.Sequence.create(easeScale, easeRotate));
-
-        lazyLayer.addChild(this.sprite, 1);
-
+        this.shipsLayer = lazyLayer;
+        this.addChild(this.shipsLayer);
         return true;
+    },
+
+    spawnShip: function(pos){
+        sprite = cc.Sprite.create("res/edudu.png");
+        sprite.setAnchorPoint(cc.p(0.5, 0.5));
+        sprite.setPosition(cc.p(pos.x, pos.y));
+        this.shipsLayer.addChild(sprite);
+    },
+
+    bindConnection: function(){
+        var self = this;
+        this.connection.onopen = function () {
+            // connection is opened and ready to use
+            console.log('connection opened');
+        };
+
+        this.connection.onerror = function (error) {
+            // an error occurred when sending/receiving data
+            console.error('connection error:' + error);
+        };
+
+        this.connection.onmessage = function (message) {
+            // try to decode json (I assume that each message from server is json)
+            try {
+                var json = JSON.parse(message.data);
+            } catch (e) {
+                console.log('This doesn\'t look like a valid JSON: ', message.data);
+                return;
+            }
+            // handle incoming message
+            console.log(json);
+            self.onmessage(json);
+        };        
+    },
+
+    onmessage: function(data){
+        if(data.type == 'spawn'){
+            this.spawnShip(data.pos);
+        }else{
+            console.log('data not valid:' + data);
+        }
     }
 
 });
@@ -103,29 +128,7 @@ function getConnection(){
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-    var connection = new WebSocket('ws://127.0.0.1:8000');
-
-    connection.onopen = function () {
-        // connection is opened and ready to use
-        console.log('connection opened');
-    };
-
-    connection.onerror = function (error) {
-        // an error occurred when sending/receiving data
-        console.error('connection error:' + error);
-    };
-
-    connection.onmessage = function (message) {
-        // try to decode json (I assume that each message from server is json)
-        try {
-            var json = JSON.parse(message.data);
-        } catch (e) {
-            console.log('This doesn\'t look like a valid JSON: ', message.data);
-            return;
-        }
-        // handle incoming message
-        console.log(json);
-    };
+    var connection = new WebSocket('ws://' + window.location.host);
     return connection;
 }
 

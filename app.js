@@ -1,5 +1,6 @@
 
 var ClientHandler = require('./clienthandler');
+var GameWorld = require('./gameworld');
 var WebSocketServer = require('websocket').server;
 var static = require('node-static');
 var http = require('http');
@@ -18,8 +19,11 @@ wsServer = new WebSocketServer({
     httpServer: server
 });
 
+world = new GameWorld();
+
 // WebSocket server
 wsServer.on('request', function(request) {
+    console.log(request);
     var connection = request.accept(null, request.origin);
-    new ClientHandler(connection, request);
+    new ClientHandler(connection, request, world);
 });
