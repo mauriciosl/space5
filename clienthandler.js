@@ -6,14 +6,21 @@ var ClientHandler = function (){
 }
 
 ClientHandler.prototype = {
-    init: function(connection, request, world){
+
+    myShip: null,
+
+    init: function(connection, request, game){
         this.connection = connection;
-        this.request = request;
-        this.world = world;
-        this.world.newClient(this);
+        this.game = game;
         this.bindEvents();
-        console.log('connection accepted from ' + request.origin);
-        console.log(request);
+    },
+
+    setShip: function(universeObject){
+        this.myShip = universeObject;
+        this.send({
+            type: 'control',
+            id: this.myShip.id
+        });
     },
 
     bindEvents: function(){
@@ -23,7 +30,7 @@ ClientHandler.prototype = {
 
     message: function(message){
         console.log(message);
-        this.world.clientMessage(message);
+        // this.world.clientMessage(message);
     },
 
     send: function(data){

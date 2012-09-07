@@ -24,6 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+graphics = {
+    'ship': 'res/gfx/coco.png'
+}
+
+
 var MyLayer = cc.Layer.extend({
     isMouseDown:false,
     helloImg:null,
@@ -32,7 +37,9 @@ var MyLayer = cc.Layer.extend({
     sprite:null,
     tmxMap:null,
     connection:null,
-    shipsLayer:null,
+    universeLayer:null,
+    universe:null,
+    myShipID:null,
 
 
     init:function (connection) {
@@ -42,6 +49,7 @@ var MyLayer = cc.Layer.extend({
         //////////////////////////////
         // 1. super init first
         this._super();
+        this.universe = {};
 
         /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -65,27 +73,56 @@ var MyLayer = cc.Layer.extend({
         this.addChild(menu, 1);
         closeItem.setPosition(cc.p(size.width - 20, 20));
 
-        /////////////////////////////
-        // 3. add your codes below...
-        // add a label shows "Hello World"
-        // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Hello World", "Arial", 38);
-        // position the label on the center of the screen
-        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 40));
-        // add the label as a child to this layer
-        this.addChild(this.helloLabel, 5);
 
-        var lazyLayer = new cc.LazyLayer();
-        this.shipsLayer = lazyLayer;
-        this.addChild(this.shipsLayer);
+        var universeLayer = cc.LayerColor.create(cc.c4b(0,0,40,100));
+        this.universeLayer = universeLayer;
+        this.addChild(this.universeLayer, 0);
         return true;
     },
 
-    spawnShip: function(pos){
-        sprite = cc.Sprite.create("res/edudu.png");
+    setUniverse: function(universe){
+        var self = this;
+        this.universeLayer.removeAllChildrenWithCleanup(true);
+        _.each(universe, function(universeObject, id){
+            self.spawn(universeObject);
+        });
+
+    },
+
+    spawn: function(universeObject){
+        sprite = cc.Sprite.create(graphics[universeObject.type]);
         sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        sprite.setPosition(cc.p(pos.x, pos.y));
-        this.shipsLayer.addChild(sprite);
+        sprite.setPosition(cc.p(universeObject.x, universeObject.y));
+
+        var emergencyAction = cc.RepeatForever.create(
+            cc.Sequence.create([
+                cc.TintTo.create(0.25, 255,0,0),
+                cc.TintTo.create(0.25, 255,255,255),
+            ])
+        );
+        // sprite.runAction(emergencyAction);
+        this.universe[universeObject.id] = sprite;
+        this.universeLayer.addChild(sprite,1);
+        sprite.setColor(cc.c3b(255,0,0));
+    },
+
+    setShip: function(id){
+        this.myShipID = id;
+        myShipSprite = this.universe[id];
+        var selectionSprite = cc.Sprite.create("res/gfx/small_selection.png");
+        selectionSprite.setAnchorPoint(cc.p(0.5,0.5));
+        // selectionSprite.setPosition(cc.p(s.width / 2, s.height / 2));
+        var rect = myShipSprite.getBoundingBox();
+        console.log(rect);
+        myShipSprite.addChild(selectionSprite, 5);
+        selectionSprite.setPosition(cc.p(rect.width / 2, rect.height / 2));
+        var pulseAction = cc.RepeatForever.create(
+            cc.Sequence.create([
+                cc.TintTo.create(0.25, 0, 80, 0),
+                cc.TintTo.create(0.25, 0, 20, 0)
+            ])
+        );
+        selectionSprite.runAction(pulseAction);
     },
 
     bindConnection: function(){
@@ -111,14 +148,20 @@ var MyLayer = cc.Layer.extend({
             // handle incoming message
             console.log(json);
             self.onmessage(json);
-        };        
+        };
     },
 
     onmessage: function(data){
-        if(data.type == 'spawn'){
-            this.spawnShip(data.pos);
-        }else{
-            console.log('data not valid:' + data);
+        switch(data.type){
+            case 'universe':
+                this.setUniverse(data.universe);
+                break;
+            case 'control':
+                this.setShip(data.id);
+                break;
+            default:
+                console.log('data not valid:' + data);
+                break;
         }
     }
 

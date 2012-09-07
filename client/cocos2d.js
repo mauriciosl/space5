@@ -35,7 +35,9 @@
         engineDir:'./libs/cocos2d-html5/cocos2d/',
         //SingleEngineFile:'',
         appFiles:[
+            'js/underscore.js',
             'src/resource.js',
+            'src/gfx.js',
             'src/myApp.js'//add your own files in order here
         ]
     };
