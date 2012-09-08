@@ -5,7 +5,12 @@ function proxy(self, method){
     });
 }
 
+function randInt(max){
+    return Math.floor(Math.random() * max);
+}
+
 module.exports = {
-    proxy: proxy
+    proxy: proxy,
+    randInt: randInt
 }
 

@@ -16,6 +16,10 @@ _.extend(Universe.prototype, {
         this.emit('new', uObject);
     },
 
+    getObjectByID: function(objectID){
+        return this.objects[objectID];
+    },
+
     newObject: function(){
         var newUniverseObject = UniverseObject.newObject.apply(this, arguments);
         this.add(newUniverseObject);

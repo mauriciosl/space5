@@ -40,6 +40,7 @@ var MyLayer = cc.Layer.extend({
     universeLayer:null,
     universe:null,
     myShipID:null,
+    playerControl:null,
 
 
     init:function (connection) {
@@ -50,6 +51,9 @@ var MyLayer = cc.Layer.extend({
         // 1. super init first
         this._super();
         this.universe = {};
+        this.playerControl = {
+            keys: []
+        };
 
         /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -67,7 +71,7 @@ var MyLayer = cc.Layer.extend({
                 this.connection.send('ping');
             });
         closeItem.setAnchorPoint(cc.p(0.5, 0.5));
-
+        this.setKeyboardEnabled(true);
         var menu = cc.Menu.create(closeItem, null);
         menu.setPosition(cc.PointZero());
         this.addChild(menu, 1);
@@ -151,7 +155,37 @@ var MyLayer = cc.Layer.extend({
         };
     },
 
+    onKeyUp: function(event){
+        console.log('keyup ' + event)
+    },
+
+    onKeyDown: function(event){
+        if(event === cc.KEY.left){
+            this.send({
+                type:'control',
+                key:'LEFT'
+            });
+        }
+        else if(event === cc.KEY.right){
+            this.send({
+                type:'control',
+                key:'RIGHT'
+            });
+        }
+    },
+
+    send: function(message){
+        this.connection.send(JSON.stringify(message));
+    },
+
+    updateObject: function(uObject){
+        var sprite = this.universe[uObject.id];
+        sprite.setPosition(cc.p(uObject.x, uObject.y));
+    },
+
     onmessage: function(data){
+        console.log('message');
+        console.log(data);
         switch(data.type){
             case 'universe':
                 this.setUniverse(data.universe);
@@ -159,8 +193,15 @@ var MyLayer = cc.Layer.extend({
             case 'control':
                 this.setShip(data.id);
                 break;
+            case 'newObject':
+                this.spawn(data.object);
+                break;
+            case 'update':
+                this.updateObject(data.object);
+                break;
             default:
-                console.log('data not valid:' + data);
+                console.log('data not valid');
+                console.log(data);
                 break;
         }
     }

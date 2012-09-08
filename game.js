@@ -20,7 +20,7 @@ Game.prototype = {
 
     newConnection: function(connection){
         var client = new ClientHandler(connection, this);
-        var playerShip = this.universe.newObject('ship', 200,200, {});
+        var playerShip = this.universe.newObject('ship', _.randInt(800), _.randInt(400), {});
         this.sendUniverse(client);
         client.setShip(playerShip);
         this.clients.push(client);
@@ -45,7 +45,27 @@ Game.prototype = {
         this.broadcast(newObjectMessage);
     },
 
+    goLeft: function(shipID){
+        var ship = this.universe.getObjectByID(shipID);
+        ship.x -= 10;
+        this.broadcast({
+            type:'update',
+            object:ship
+        });
+    },
+
+    goRight: function(shipID){
+        var ship = this.universe.getObjectByID(shipID);
+        ship.x += 10;
+        this.broadcast({
+            type:'update',
+            object:ship
+        });
+    },
+
     broadcast: function(data){
+        console.log('broadcast: ')
+        console.log(data);
         for (var i = this.clients.length - 1; i >= 0; i--) {
             this.clients[i].send(data);
         };
